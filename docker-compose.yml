@@ -1,14 +1,16 @@
 
 
-services:
-  app:
-    image: kclim1/todo-backend:latest  # Image from Docker Hub
-    container_name: todo-backend
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      - PORT=3000
-    restart: unless-stopped
+  services:
+    app:
+      image: kclim1/todo-backend:latest  # Image from Docker Hub
+      container_name: todo-backend
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - "${PORT}:${PORT}"
+      environment:
+        - PORT=${PORT}
+      restart: unless-stopped
+      volumes:
+      - ./src:/app/src
