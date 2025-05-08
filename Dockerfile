@@ -8,11 +8,14 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --production
 
+# Install nodemon globally for development
+RUN npm install -g nodemon
+
 # Copy the app source code
 COPY src/ src/
 
 # Expose the port
-EXPOSE 3000
+EXPOSE ${PORT}
 
 # Start the app
-CMD ["node", "src/app.js"]
+CMD ["npx", "nodemon", "src/app.js"]
