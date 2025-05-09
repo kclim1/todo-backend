@@ -44,4 +44,23 @@ exports.viewAllTodos = async (req, res) => {
     res.status(500).json({ message: "Error fetching all todos." });
   }
 };
-  
+
+exports.deleteTodo = async (req, res) => {
+  try {
+    const { id } = req.params; 
+    console.log(' This is the to-do selected for deletion:', id);
+
+    const todoToDelete = await Todo.findOneAndDelete({ _id: id });
+
+    if (!todoToDelete) {
+      return res.status(404).json({ message: "To-Do not found." });
+    }
+
+    console.log(' To-Do has been successfully deleted:', todoToDelete);
+    res.status(200).json({ message: "To-Do successfully deleted." });
+
+  } catch (error) {
+    console.error(" Error deleting to-do:", error);
+    res.status(500).json({ message: "Error deleting to-do." });
+  }
+};
