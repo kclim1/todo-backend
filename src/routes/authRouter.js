@@ -8,16 +8,19 @@ require('../auth/googleAuth')
 
 // Google Login Route
 router.get("/google", 
-    passport.authenticate("google", { scope: ["profile", "email"] })
+    passport.authenticate("google", { scope: ["profile", "email"],session: false })
   );
   
   // Google Callback Route - Displaying the Profile Object
 router.get("/google/callback",
     passport.authenticate("google", {
       failureRedirect: "/auth/google/failure",
+      session: false
     }),
     (req, res) => {
+        res.json({"user" : req.user })
         console.log("✅ Google Profile Object:", req.user);
+        //maybe redirect to dashboard where you get to see all todos 
     }
   );
 
