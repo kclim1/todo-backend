@@ -64,3 +64,33 @@ exports.deleteTodo = async (req, res) => {
     res.status(500).json({ message: "Error deleting to-do." });
   }
 };
+
+exports.updateTodoStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body; //can be either true or false 
+
+  try {
+    console.log('This is the to-do selected for status update:', id);
+
+    const updatedTodo = await Todo.findOneAndUpdate(
+      { _id: id },               
+      { completed: status },  
+      { new: true }             
+    );
+
+    if (!updatedTodo) {
+      console.log('todo not found')
+      return res.status(404).json({ message: "To-Do not found." });
+    }
+
+    console.log('To-Do status updated:', updatedTodo);
+    res.status(200).json({
+      message: "To-Do status updated successfully.",
+      todo: updatedTodo
+    });
+
+  } catch (error) {
+    console.error("Error updating to-do status:", error);
+    res.status(500).json({ message: "Error updating to-do status." });
+  }
+};
