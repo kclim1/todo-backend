@@ -9,6 +9,7 @@ const authRouter = require('./routes/authRouter')
 const pageRoutes = require('./routes/pageRoutes')
 const passport = require('passport');
 require('./auth/googleAuth');
+const verifyJWT = require('./middleware/verifyJWT')
 
 // Establish connection to MongoDB
 connectToMongoDB();
@@ -22,10 +23,11 @@ app.use(express.json());
 //Can add github auth or local auth in the future
 app.use("/auth", authRouter);
 
+//maybe protect these ones too
 app.use('/',pageRoutes)
 
-// Mount the CRUD Router (API Routes)
-app.use('/api/v1', CRUDRouter);
+// Mount the CRUD Router. all CRUD operations protected
+app.use('/api/v1',verifyJWT ,CRUDRouter);
 
 
 // Start Server
