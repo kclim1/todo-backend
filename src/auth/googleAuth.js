@@ -29,10 +29,10 @@ const googleStrategy = passport.use(
           userName: profile.displayName
         };
 
-        const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "1h" });
-
+        const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "3h" });
+        console.log('new token generated')
         user.token = token;
-        
+
         done(null, user);
 
       } catch (error) {
