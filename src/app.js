@@ -6,7 +6,7 @@ const PORT = process.env.PORT
 const connectToMongoDB = require('./config/connectToMongoDB');
 const CRUDRouter = require('./routes/CRUDRouter');
 const authRouter = require('./routes/authRouter')
-const pageRoutes = require('./routes/pageRoutes')
+const pageRouter = require('./routes/pageRouter')
 const passport = require('passport');
 require('./auth/googleAuth');
 const verifyJWT = require('./middleware/verifyJWT')
@@ -24,7 +24,7 @@ app.use(express.json());
 app.use("/auth", authRouter);
 
 //maybe protect these ones too
-app.use('/',pageRoutes)
+app.use('/',pageRouter)
 
 // Mount the CRUD Router. all CRUD operations protected
 app.use('/api/v1',verifyJWT ,CRUDRouter);
