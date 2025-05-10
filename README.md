@@ -37,9 +37,18 @@ todo-backend
 ```
 Method: GET (Accessed via Browser)<br>
 Description:<br>
-User must give consent and will be redirected back to the app, receiving a JWT upon successful authentication. This is the only endpoint that must be accessed through the browser. 
+User must give consent and will be redirected back to the app, receiving a JWT upon successful authentication. Access this endpoint using the browser.
 
 ---
+Upon succesful login, a google user object will be returned.
+```
+{
+  googleId: '123456788900123',
+  email: 'sample@gmail.com',
+  userName: 'JOHN DOE',
+  token: 'SAMPLE_TOKEN_WITH_RANDOM_LOOKING_ALPHABETS_DIGITS'
+}
+```
 
 ### Create a Todo
 ```
@@ -101,7 +110,7 @@ Retrieves a list of all Todo items in the system.
 
 ### Sample cURL command
 ```
-curl -X GET http://localhost:3000/api/v1/todos \
+curl http://localhost:3000/api/v1/todos \
 -H "Authorization: Bearer YOUR_JWT_TOKEN_HERE"
 ```
 Response: 200 OK
