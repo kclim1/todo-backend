@@ -19,7 +19,7 @@ router.get("/google/callback",
     }),
     (req, res) => {
         res.json({"user" : req.user })
-        console.log("✅ Google Profile Object:", req.user);
+        console.log(" User Object:", req.user);
         //maybe redirect to dashboard where you get to see all todos 
     }
   );
