@@ -1,4 +1,6 @@
-require('dotenv').config();
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+});
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../schema/User');
@@ -29,8 +31,19 @@ const googleStrategy = passport.use(
           userName: profile.displayName
         };
 
-        const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: "3h" });
-        console.log('new token generated')
+       const jwtSecret = process.env.NODE_ENV === 'test' 
+          ? process.env.JWT_SECRET_TEST 
+          : process.env.JWT_SECRET;
+
+        const jwtExpiry = process.env.NODE_ENV === 'test' 
+          ? process.env.JWT_EXPIRY_TEST 
+          : process.env.JWT_EXPIRY;
+
+        const token = jwt.sign(user, jwtSecret, { expiresIn: jwtExpiry });
+
+        console.log(process.env.NODE_ENV === 'test' 
+          ? ' Test JWT generated' 
+          : ' Production JWT generated');
         user.token = token;
 
         done(null, user);
