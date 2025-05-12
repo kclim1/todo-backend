@@ -1,8 +1,9 @@
 // src/app.js
 const express = require('express');
 const app = express();
-require('dotenv').config();
-const PORT = process.env.PORT 
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env'
+});const PORT = process.env.PORT 
 const connectToMongoDB = require('./config/connectToMongoDB');
 const CRUDRouter = require('./routes/CRUDRouter');
 const authRouter = require('./routes/authRouter')
@@ -11,8 +12,21 @@ const passport = require('passport');
 require('./auth/googleAuth');
 const verifyJWT = require('./middleware/verifyJWT')
 
-// Establish connection to MongoDB
-connectToMongoDB();
+// Establish connection to MongoDB and start server if not in test mode  
+if (process.env.NODE_ENV !== 'test') {
+  connectToMongoDB();
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`🚀 App running on ${PORT}`);
+  });
+}
+
+//use to check which env file is loaded
+console.log(
+  process.env.NODE_ENV === 'test' 
+    ? ".env.test loaded" 
+    : ".env loaded"
+);
 
 // Initialize Passport Middleware
 app.use(passport.initialize());
@@ -30,7 +44,5 @@ app.use('/',pageRouter)
 app.use('/api/v1',verifyJWT ,CRUDRouter);
 
 
-// Start Server
-app.listen(PORT, () => {
-  console.log(`🚀 App running on ${PORT}`);
-});
+
+module.exports = app;
