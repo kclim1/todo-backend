@@ -9,8 +9,9 @@
         dockerfile: Dockerfile
       ports:
         - "${PORT}:${PORT}"
-      environment:
-        - PORT=${PORT}
+      env_file:
+      - .env
+      
       restart: unless-stopped
       volumes:
       - ./src:/app/src
