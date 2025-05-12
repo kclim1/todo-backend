@@ -1,8 +1,9 @@
 # todo-backend
 ## Index (draft)
--file structure 
--api
--instructions
+-instructions(docker compose etc)<br>
+-file structure <br>
+-api documentation<br>
+-run tests
 
 
 ## File Structure
@@ -11,7 +12,7 @@ todo-backend
 ├── docker-compose.yml
 ├── Dockerfile
 ├── src
-│   ├── app.js                   # Main entry point
+│   ├── app.js                    # Main entry point
 │   ├── auth
 │   │   └── googleAuth.js         # Google OAuth logic
 │   ├── config
@@ -24,9 +25,14 @@ todo-backend
 │   │   ├── authRouter.js         # Authentication routes
 │   │   ├── CRUDRouter.js         # Routes for CRUD operations
 │   │   └── pageRouter.js         # Static page routes (if any)
-│   └── schema
-│       ├── Todo.js               # Todo schema (Mongoose)
-│       └── User.js               # User schema (Mongoose)
+│   ├── schema
+│   │   ├── Todo.js               # Todo schema (Mongoose)
+│   │   └── User.js               # User schema (Mongoose)
+│   └── tests                     # Test folder added
+│       ├── test_auth.js          # Test file for authentication (Google OAuth)
+│       ├── test_crud.js          # Test file for CRUD operations
+│       └── test_jwt.js           # Test file for JWT authentication
+
 ```
 ---
 ## API documentation
