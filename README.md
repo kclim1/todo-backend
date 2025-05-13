@@ -32,12 +32,12 @@ curl -X POST http://localhost:PORT/api/v1/todos \
 ```
 3. Delete a todo
 ```
-curl -X DELETE http://localhost:PORT/api/v1/todos/:<TodoID> \
+curl -X DELETE http://localhost:PORT/api/v1/todos/:<_id> \
 -H "Authorization: Bearer <JWT>"
 ```
 4. Mark a todo as completed
 ```
-curl -X PATCH http://localhost:PORT/api/v1/todos/:<TodoID> \
+curl -X PATCH http://localhost:PORT/api/v1/todos/:<_id> \
 -H "Authorization: Bearer <JWT>" \
 -H "Content-Type: application/json" \
 -d '{
