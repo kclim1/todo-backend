@@ -1,10 +1,49 @@
 # todo-backend
-## Index (draft)
--instructions(docker compose etc)<br>
+## Index
+-instructions to run app and tests<br>
+-sample usage
 -file structure <br>
 -api documentation<br>
--run tests
 
+## Instructions
+1. Clone the app ***`git clone git@github.com:kclim1/todo-backend.git`***
+2. Setup the env file inside root directory.
+3. Launch the app using with docker compose up -d
+4. Visit /auth/google on the browser to login with google account and to receive JWT upon succesful login
+Note: After logging in, all API interactions can be performed directly from the terminal using cURL commands.
+5. Send API requests using curl with your valid JWT 
+6. To run all test use **`npm test`** to run test suite or **`npm test path/to/test/file`** to run a specific test file.
+---
+## Sample Usage 
+1. GET all todos
+```
+curl -X GET http://localhost:PORT/api/v1/todos \
+-H "Authorization: Bearer <JWT>"
+```
+2. Create a todo 
+```
+curl -X POST http://localhost:PORT/api/v1/todos \
+-H "Authorization: Bearer <JWT>" \
+-H "Content-Type: application/json" \
+-d '{
+  "title": "Sample Title",
+  "description": "Sample Description"
+}'
+```
+3. Delete a todo
+```
+curl -X DELETE http://localhost:PORT/api/v1/todos/:<TodoID> \
+-H "Authorization: Bearer <JWT>"
+```
+4. Mark a todo as completed
+```
+curl -X PATCH http://localhost:PORT/api/v1/todos/:<TodoID> \
+-H "Authorization: Bearer <JWT>" \
+-H "Content-Type: application/json" \
+-d '{
+  "status": true
+}'
+```
 
 ## File Structure
 ```
@@ -28,10 +67,10 @@ todo-backend
 │   ├── schema
 │   │   ├── Todo.js               # Todo schema (Mongoose)
 │   │   └── User.js               # User schema (Mongoose)
-│   └── tests                     # Test folder added
-│       ├── test_auth.js          # Test file for authentication (Google OAuth)
-│       ├── test_crud.js          # Test file for CRUD operations
-│       └── test_jwt.js           # Test file for JWT authentication
+│   └── tests                     # Test folder testing for expected behaviours
+│       ├── expextedToFail        # Test folder for all expected failures 
+│       ├── expectedToPass        # Test folder for all expected success
+
 
 ```
 ---
