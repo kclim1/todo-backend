@@ -8,7 +8,7 @@
 ## Instructions
 1. Clone the app ***`git clone git@github.com:kclim1/todo-backend.git`***
 2. Setup the env file inside root directory.
-3. Launch the app using with docker compose up -d
+3. Launch the app using with docker compose up -d (optional docker logs todo-backend -f)
 4. Visit /auth/google on the browser to login with google account and to receive JWT upon succesful login
 Note: After logging in, all API interactions can be performed directly from the terminal using cURL commands.
 5. Send API requests using curl with your valid JWT 
